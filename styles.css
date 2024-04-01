@@ -12,15 +12,21 @@
   width: 40px;
 }
 
+.square img {
+  height: 30px;
+  width: 30px;
+  margin: 5px;
+}
+
 .white {
   background-color: antiquewhite;
 }
 
-.black {
-  background-color: blue;
+.brown {
+  background-color: brown;
 }
 
 .piece img {
-  width: 40px; /* Adjust the width as needed */
+  width: 30px; /* Adjust the width as needed */
   height: auto; /* Height will scale proportionally based on the width */
 }
