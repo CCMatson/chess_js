@@ -1,0 +1,26 @@
+#gameboard {
+  width: 320px;
+  height: 320px;
+  /* background-color: darkgoldenrod; */
+  border: 3px black solid;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.square {
+  height: 40px;
+  width: 40px;
+}
+
+.white {
+  background-color: antiquewhite;
+}
+
+.black {
+  background-color: blue;
+}
+
+.piece img {
+  width: 40px; /* Adjust the width as needed */
+  height: auto; /* Height will scale proportionally based on the width */
+}
