@@ -17,27 +17,23 @@ function createBoard(){
     const square = document.createElement('div')
     square.classList.add('square')
     square.innerHTML = startPiece
-    //make piece draggable
-    if (startPiece !==' ') {
-      const img = square.querySelector('.piece img').setAttribute('draggable', true)
+    if (square.innerHTML.trim() !== '') {
+      square.firstChild.setAttribute('draggable', true)
+      console.log(square.innerHTML , 'innerHTML')
     }
 
-    // square.classList.add('black')
-    //define the row we are in, and set the 
+
     const row = Math.floor((63 - i)/8 + 1)
     const squareColor = (row + i) % 2 == 0 ? 'white' : 'brown';
     square.classList.add(squareColor);
-    // if (row % 2 === 0) {
-    //   square.classList.add(i % 2===0 ? 'white' : 'brown')
-    // } else {
-    //   square.classList.add(i % 2===0 ? 'brown' : 'white')
-    
-    // if ( i <= 15) {
-    //   square.firstChild.firstChild.classList.add('white')
-    // }
+    //make piece draggable
 
+    // if (startPiece !==' ') {
+    //   const img = square.querySelector('.piece img').setAttribute('draggable', true)
+    // }
     gameBoard.append(square)
   });
 }
 
 createBoard()
+
