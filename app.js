@@ -18,15 +18,14 @@ function createBoard(){
   startPieces.forEach((startPiece, i) => {
     const square = document.createElement('div')
     square.classList.add('square')
-    // square.classList.add('white')
-
-    gameBoard.append(square)
     square.innerHTML = startPiece
+    gameBoard.append(square)
     square.setAttribute('square-id', i)
+    
+    const row = Math.floor((63 - i)/8 + 1) //row we are in
 
-    const row = Math.floor((63 - i)/8 + 1)
     const squareColor = (row + i) % 2 == 0 ? 'white' : 'brown';
-    square.classList.add(squareColor);
+    square.classList.add(squareColor); // for everyother row, check square, assign color
 
     if (square.innerHTML.trim() !== '') {
       square.firstChild.setAttribute('draggable', true)
@@ -35,38 +34,36 @@ function createBoard(){
 }
 createBoard()
 
+
 const allSquares = document.querySelectorAll("#gameboard .square")
 
 allSquares.forEach(square => {
   square.addEventListener('dragstart', dragStart)
-  square.addEventListener('dragover', dragOver)
+  // square.addEventListener('dragover', dragOver)
   square.addEventListener('drop', drop)
   console.log(square, 'square')
 })
+
+// gameBoard.addEventListener('dragstart', dragStart)
+// gameBoard.addEventListener('drop', drop)
 
 let startPositionId 
 let draggedElement
 
 //needs work, hitting piece not square
 function dragStart (e) {
-  
-startPositionId = parseInt(e.target.getAttribute('square-id'))
-draggedPiece = e.target
-e.dataTransfer.setData('text/plain', ' ')
+  console.log(e.target.parentNode, 'e')
+// startPositionId = parseInt(e.target.getAttribute('square-id'))
+// draggedPiece = e.target
+// e.dataTransfer.setData('text/plain', ' ')
 
-console.log(e, 'event')
+// console.log(e, 'event')
 
+}
 
-
-// if (square){
-//   const squareId = square.getAttribute('square-id')
-//   console.log(squareId, 'squareId')
+// function dragOver(e) {
+//   e.prevent.Default()
 // }
-}
-
-function dragOver(e) {
-  e.prevent.Default()
-}
 
 function drop(e){
   e.preventDefault()
@@ -85,4 +82,4 @@ function movePiece(start, end){
     startSquare.innerHTML = ' ';
   }
 }
-console.log(allSquares, 'allsquares')
+// console.log(allSquares, 'allsquares')
