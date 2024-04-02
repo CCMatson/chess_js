@@ -8,6 +8,8 @@ rook1, knight1, bishop1, queen1, king1, bishop1, knight1, rook1,
 pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1,
 ' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
 ' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
+' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
+' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
 pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2,
 rook2, knight2, bishop2, queen2, king2, bishop2, knight2, rook2,
 ]
@@ -16,24 +18,71 @@ function createBoard(){
   startPieces.forEach((startPiece, i) => {
     const square = document.createElement('div')
     square.classList.add('square')
-    square.innerHTML = startPiece
-    if (square.innerHTML.trim() !== '') {
-      square.firstChild.setAttribute('draggable', true)
-      console.log(square.innerHTML , 'innerHTML')
-    }
+    // square.classList.add('white')
 
+    gameBoard.append(square)
+    square.innerHTML = startPiece
+    square.setAttribute('square-id', i)
 
     const row = Math.floor((63 - i)/8 + 1)
     const squareColor = (row + i) % 2 == 0 ? 'white' : 'brown';
     square.classList.add(squareColor);
-    //make piece draggable
 
-    // if (startPiece !==' ') {
-    //   const img = square.querySelector('.piece img').setAttribute('draggable', true)
-    // }
-    gameBoard.append(square)
+    if (square.innerHTML.trim() !== '') {
+      square.firstChild.setAttribute('draggable', true)
+    }
   });
 }
-
 createBoard()
 
+const allSquares = document.querySelectorAll("#gameboard .square")
+
+allSquares.forEach(square => {
+  square.addEventListener('dragstart', dragStart)
+  square.addEventListener('dragover', dragOver)
+  square.addEventListener('drop', drop)
+  console.log(square, 'square')
+})
+
+let startPositionId 
+let draggedElement
+
+//needs work, hitting piece not square
+function dragStart (e) {
+  
+startPositionId = parseInt(e.target.getAttribute('square-id'))
+draggedPiece = e.target
+e.dataTransfer.setData('text/plain', ' ')
+
+console.log(e, 'event')
+
+
+
+// if (square){
+//   const squareId = square.getAttribute('square-id')
+//   console.log(squareId, 'squareId')
+// }
+}
+
+function dragOver(e) {
+  e.prevent.Default()
+}
+
+function drop(e){
+  e.preventDefault()
+  const endPositionId = parseInt(e.target.getAttribute('square-id'))
+  movePiece(startPositionId, endPositionId)
+}
+
+function movePiece(start, end){
+  const startSquare = document.querySelector(`[square-id="${start}"]`)
+  const endSquare = document.querySelector(`[square-id="${end}"]`)
+
+  if (endSquare.innerHTML.trim() !== ''){
+    console.log('caputure piece')
+  }else {
+    endSquare.innerHTML = startSquare.innerHTML;
+    startSquare.innerHTML = ' ';
+  }
+}
+console.log(allSquares, 'allsquares')
