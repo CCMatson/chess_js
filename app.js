@@ -33,19 +33,38 @@ function createBoard() {
     const squareColor = (row + i) % 2 == 0 ? "white" : "brown";
     square.classList.add(squareColor);
     //if the square isn't empty, make it's first child draggable
-    if (square.innerHTML.trim() !== "") {
-      square.firstChild.setAttribute("draggable", true);
-    }
+    
+    square.firstElementChild && square.firstElementChild.setAttribute('draggable', true)
+
+    // if (square.innerHTML.trim() !== "") {
+    //   square.firstChild.setAttribute("draggable", true);
+    // }
   });
 }
 //call the function
 createBoard();
 
 //all the squares in the gameboard
+// const allSquares = document.querySelectorAll("#gameboard .square");
+
 const allSquares = document.querySelectorAll("#gameboard .square");
+
+console.log(allSquares, 'all squares node')
 
 //listen for drag or drop at each square
 allSquares.forEach((square) => {
+  const piece = square.querySelector('.piece')
+  if (piece) {
+    //if there is a piece, add an event listenter
+    piece.draggable = true;
+    piece.addEventListener('dragstart', (event) => {
+      const squareId = square.getAttribute('square-id')
+      console.log('drag started from square', squareId)
+      //do I need this to store the data with the drag?
+      event.dataTransfer.setData('text/plain', squareId)
+    })
+
+  }
   square.addEventListener("dragstart", dragStart);
   // square.addEventListener('dragover', dragOver)
   square.addEventListener("drop", drop);
@@ -97,4 +116,3 @@ function movePiece(start, end) {
     startSquare.innerHTML = " ";
   }
 }
-// console.log(allSquares, 'allsquares')
