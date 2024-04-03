@@ -45,9 +45,6 @@ function createBoard() {
 //call the function
 createBoard();
 
-//all the squares in the gameboard
-// const allSquares = document.querySelectorAll("#gameboard .square");
-
 const allSquares = document.querySelectorAll("#gameboard .square");
 
 console.log(allSquares, "all squares node");
@@ -84,18 +81,28 @@ function drop(e) {
 function movePiece(start, end) {
   const startSquare = document.querySelector(`[square-id="${start}"]`);
   const endSquare = document.querySelector(`[square-id="${end}"]`);
+  console.log(endSquare, 'endSquare')
+  console.log(startSquare, 'start square')
 
   if (!startSquare || !endSquare) {
     console.error("start or end square wasnt found");
     return;
   }
-
-
-  if (endSquare.innerHTML.trim() !== "") {
-    console.log("caputure piece");
-  } else {
-    endSquare.innerHTML = startSquare.innerHTML;
-    startSquare.innerHTML = " ";
+  //check if the end square is occupied
+  const pieceInEndSquare = endSquare.querySelector('.piece')
+  if (pieceInEndSquare) {
+    console.log('capture THIS piece')
+    pieceInEndSquare.remove()
   }
+
+  endSquare.innerHTML = startSquare.innerHTML
+  startSquare.innerHTML = " "
+
+  // if (endSquare.innerHTML.trim() !== "") {
+  //   console.log("caputure piece");
+  // } else {
+  //   endSquare.innerHTML = startSquare.innerHTML;
+  //   startSquare.innerHTML = " ";
+  // }
 }
 
