@@ -58,50 +58,26 @@ allSquares.forEach((square) => {
     //if there is a piece, add an event listenter
     piece.draggable = true;
     piece.addEventListener('dragstart', (event) => {
-      const squareId = square.getAttribute('square-id')
-      console.log('drag started from square', squareId)
+      //the squareId is the number of the square where the piece started
+      const startPositionId = square.getAttribute('square-id')
+      console.log('drag started from square', startPositionId)
       //do I need this to store the data with the drag?
-      event.dataTransfer.setData('text/plain', squareId)
+      event.dataTransfer.setData('text/plain', startPositionId)
     })
-
   }
-  square.addEventListener("dragstart", dragStart);
-  // square.addEventListener('dragover', dragOver)
-  square.addEventListener("drop", drop);
-  console.log(square, "square");
+  square.addEventListener('dragover', dragOver)
+square.addEventListener('drop', drop)
+
 });
-
-//idk about this, I want to target the square
-const allPieces = document.querySelectorAll(".piece");
-allPieces.forEach((piece) => {
-  piece.addEventListener("dragstart", dragStart);
-});
-
-// gameBoard.addEventListener('dragstart', dragStart)
-// gameBoard.addEventListener('drop', drop)
-
-let startPositionId;
-let draggedElement;
-
-//needs work, hitting piece not square
-function dragStart(e) {
-  console.log(e.target, "e");
-  startPositionId = parseInt(e.target.getAttribute('square-id'))
-  draggedPiece = e.target.parentNode
-  e.dataTransfer.setData('text/plain', ' ')
-
-  console.log(e, 'event')
-}
 
 function dragOver(e) {
-  e.prevent.Default()
-  // const endPositionId = parseInt(e.target.getAttribute("square-id"));
-  // movePiece(startPositionId, endPositionId);
+  e.preventDefault()
 }
 
 function drop(e) {
   e.preventDefault();
   const endPositionId = parseInt(e.target.getAttribute("square-id"));
+  startPositionId = e.dataTransfer.getData('text/plain')
   movePiece(startPositionId, endPositionId);
 }
 
@@ -116,3 +92,4 @@ function movePiece(start, end) {
     startSquare.innerHTML = " ";
   }
 }
+
