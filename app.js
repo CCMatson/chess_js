@@ -59,7 +59,7 @@ allSquares.forEach((square) => {
       //the squareId is the number of the square where the piece started
       const startPositionId = square.getAttribute("square-id");
       console.log("drag started from square", startPositionId);
-      //do I need this to store the data with the drag?
+      //to store the data with the drag?
       event.dataTransfer.setData("text/plain", startPositionId);
     });
   }
@@ -73,36 +73,56 @@ function dragOver(e) {
 
 function drop(e) {
   e.preventDefault();
-  const endPositionId = parseInt(e.target.getAttribute("square-id"));
-  startPositionId = e.dataTransfer.getData("text/plain");
-  movePiece(startPositionId, endPositionId);
-}
-
-function movePiece(start, end) {
-  const startSquare = document.querySelector(`[square-id="${start}"]`);
-  const endSquare = document.querySelector(`[square-id="${end}"]`);
-  console.log(endSquare, 'endSquare')
-  console.log(startSquare, 'start square')
+  const startSquareId = parseInt(e.dataTransfer.getData("text/plain"));
+  const startSquare = document.querySelector(`[square-id="${startSquareId}"]`);
+  const endSquare = e.target.closest(".square");
 
   if (!startSquare || !endSquare) {
-    console.error("start or end square wasnt found");
-    return;
-  }
-  //check if the end square is occupied
-  const pieceInEndSquare = endSquare.querySelector('.piece')
-  if (pieceInEndSquare) {
-    console.log('capture THIS piece')
-    pieceInEndSquare.remove()
+      console.error("Start or end square not found");
+      return;
   }
 
-  endSquare.innerHTML = startSquare.innerHTML
-  startSquare.innerHTML = " "
+  const startPiece = startSquare.innerHTML.trim();
+  const endPiece = endSquare.innerHTML.trim();
 
-  // if (endSquare.innerHTML.trim() !== "") {
-  //   console.log("caputure piece");
-  // } else {
-  //   endSquare.innerHTML = startSquare.innerHTML;
-  //   startSquare.innerHTML = " ";
-  // }
+  if (endPiece !== "") {
+      console.log("Captured piece: " + endPiece);
+      endSquare.innerHTML = "";
+  }
+
+  endSquare.innerHTML = startPiece;
+  startSquare.innerHTML = "";
+
+  console.log("Moved piece " + startPiece + " to square " + endSquare.getAttribute("square-id"));
+
+
+// function drop(e) {
+//   e.preventDefault();
+//   const endPositionId = parseInt(e.target.getAttribute("square-id"));
+//   startPositionId = e.dataTransfer.getData("text/plain");
+//   // removeOriginalPiece(endPositionId)
+//   movePiece(startPositionId, endPositionId);
+// }
+
+// function movePiece(start, end) {
+//   const startSquare = document.querySelector(`[square-id="${start}"]`);
+//   const endSquare = document.querySelector(`[square-id="${end}"]`);
+//   console.log(endSquare, 'endSquare')
+//   console.log(startSquare, 'start square')
+
+//   if (!startSquare || !endSquare) {
+//     console.error("start or end square wasnt found");
+//     return;
+//   }
+//   //check if the end square is occupied
+//   const pieceInEndSquare = endSquare.querySelector('.piece')
+//   if (pieceInEndSquare) {
+//     console.log('capture THIS piece')
+//     pieceInEndSquare.remove()
+//   }
+
+//   endSquare.innerHTML = startSquare.innerHTML
+//   startSquare.innerHTML = " "
+
+// }
 }
-
