@@ -15,19 +15,23 @@
   align-items: center;
 }
 
-/* div .square {
-  background-color: red;
-} */
 img {
   height: 30px;
 }
 
-/* .square img {
-  height: 30px;
-  width: 30px;
-  margin: 5px;
+button {
+  margin: 10px;
+  font-family: "Roboto Slab", serif;
+  border-radius: 90px;
+  background-color: pink;
+}
 
-} */
+button:hover{
+  margin: 10px;
+  font-family: "Roboto Slab", serif;
+  border-radius: 90px;
+  background-color: white
+}
 
 .white {
   background-color: antiquewhite;

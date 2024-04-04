@@ -88,11 +88,37 @@ function drop(e) {
 
   endSquare.innerHTML = startPiece;
   startSquare.innerHTML = "";
-
+  
   console.log(
     "Moved piece " +
       startPiece +
       " to square " +
       endSquare.getAttribute("square-id")
   );
+}
+
+const resetButton = document.getElementById("reset-button")
+resetButton.addEventListener('click', () => {console.log('reset button clicked')
+resetGame()
+})
+
+function resetGame(){
+  allSquares.forEach((square, i) => {
+    square.innerHTML = startPieces[i]
+
+    const piece = square.querySelector(".piece");
+    if (piece) {
+      // Re-enable drag and drop functionality for the piece
+      piece.draggable = true;
+      piece.addEventListener("dragstart", (event) => {
+        const startPositionId = square.getAttribute("square-id");
+        console.log("drag started from square", startPositionId);
+        event.dataTransfer.setData("text/plain", startPositionId);
+      });
+    }
+
+    // Reattach dragover and drop event listeners
+    square.addEventListener("dragover", dragOver);
+    square.addEventListener("drop", drop);
+  })
 }
