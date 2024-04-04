@@ -1,6 +1,5 @@
 [PLAY CHESS](https://chessgamejavascript.netlify.app/)
 
-### About
 #### This is a basic chess game made with Javascript, HTML, and CSS. Players can move and capture pieces. 
 
 ### Attributes

@@ -33,9 +33,6 @@ function createBoard() {
     //for every other row, check square, assign color
     const squareColor = (row + i) % 2 == 0 ? "white" : "brown";
     square.classList.add(squareColor);
-    // if (startPiece.trim() !== ""){
-    //   square.firstElementChild.setAttribute("draggable", true)
-    // }
     square.firstElementChild &&
       square.firstElementChild.setAttribute("draggable", true);
   });
@@ -75,6 +72,7 @@ function drop(e) {
   const startSquare = document.querySelector(`[square-id="${startSquareId}"]`);
   const endSquare = e.target.closest(".square");
 
+  //error handling
   if (!startSquare || !endSquare) {
     console.error("Start or end square not found");
     return;
