@@ -20,23 +20,22 @@ img {
 }
 
 button {
-  margin: 10px;
   font-family: "Roboto Slab", serif;
-  border-radius: 90px;
   background-color: pink;
+  border-radius: 90px;
+  margin-top: 15px;
 }
 
-button:hover{
-  margin: 10px;
+button:hover {
   font-family: "Roboto Slab", serif;
+  background-color: whitesmoke;
   border-radius: 90px;
-  background-color: white
+  margin-top: 15px;
 }
 
 .white {
   background-color: antiquewhite;
 }
-
 
 .brown {
   background-color: brown;
@@ -46,3 +45,11 @@ p {
   font-family: "Roboto Slab", serif;
 }
 
+a {
+  text-decoration: none;
+  color: brown;
+}
+
+a:hover {
+color: red;
+}
