@@ -4,14 +4,15 @@ const infoDisplay = document.querySelector("info-display")
 const width = 8
 
 const startPieces = [
-rook1, knight1, bishop1, queen1, king1, bishop1, knight1, rook1,
+  rook2, knight2, bishop2, queen2, king2, bishop2, knight2, rook2,
+  pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2,
+
+' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
+' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
+' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
+' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
 pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1,
-' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
-' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
-' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
-' ', ' ', ' ', ' ',' ', ' ', ' ', ' ',
-pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2,
-rook2, knight2, bishop2, queen2, king2, bishop2, knight2, rook2,
+rook1, knight1, bishop1, queen1, king1, bishop1, knight1, rook1,
 ]
 
 // let currentPlayer = "player 1"
