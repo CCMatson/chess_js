@@ -14,42 +14,38 @@ pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2, pawn2,
 rook2, knight2, bishop2, queen2, king2, bishop2, knight2, rook2,
 ]
 
+// let currentPlayer = "player 1"
+
 function createBoard() {
   //for each element in array starPieces at index i
   startPieces.forEach((startPiece, i) => {
     //create div, name it square
     const square = document.createElement("div");
-    //add class square
     square.classList.add("square");
-    //contents of the square is the start piece
     square.innerHTML = startPiece;
     //insert the square element into the gameboard element
     gameBoard.append(square);
-    //set the index # as the square id
+    //set the square index # as the square id
     square.setAttribute("square-id", i);
-    //row we are in
+    //find the row
     const row = Math.floor((63 - i) / 8 + 1);
     //for every other row, check square, assign color
     const squareColor = (row + i) % 2 == 0 ? "white" : "brown";
     square.classList.add(squareColor);
-    //if the square isn't empty, make it's first child draggable
-
+    // if (startPiece.trim() !== ""){
+    //   square.firstElementChild.setAttribute("draggable", true)
+    // }
     square.firstElementChild &&
       square.firstElementChild.setAttribute("draggable", true);
-
-    // if (square.innerHTML.trim() !== "") {
-    //   square.firstChild.setAttribute("draggable", true);
-    // }
   });
 }
-//call the function
+
 createBoard();
 
 const allSquares = document.querySelectorAll("#gameboard .square");
 
 console.log(allSquares, "all squares node");
 
-//listen for drag or drop at each square
 allSquares.forEach((square) => {
   const piece = square.querySelector(".piece");
   if (piece) {
@@ -59,7 +55,7 @@ allSquares.forEach((square) => {
       //the squareId is the number of the square where the piece started
       const startPositionId = square.getAttribute("square-id");
       console.log("drag started from square", startPositionId);
-      //to store the data with the drag?
+      //store the data with the drag
       event.dataTransfer.setData("text/plain", startPositionId);
     });
   }
@@ -71,6 +67,7 @@ function dragOver(e) {
   e.preventDefault();
 }
 
+//drop and capture
 function drop(e) {
   e.preventDefault();
   const startSquareId = parseInt(e.dataTransfer.getData("text/plain"));
@@ -78,51 +75,25 @@ function drop(e) {
   const endSquare = e.target.closest(".square");
 
   if (!startSquare || !endSquare) {
-      console.error("Start or end square not found");
-      return;
+    console.error("Start or end square not found");
+    return;
   }
 
   const startPiece = startSquare.innerHTML.trim();
   const endPiece = endSquare.innerHTML.trim();
 
   if (endPiece !== "") {
-      console.log("Captured piece: " + endPiece);
-      endSquare.innerHTML = "";
+    console.log("Captured piece: " + endPiece);
+    endSquare.innerHTML = "";
   }
 
   endSquare.innerHTML = startPiece;
   startSquare.innerHTML = "";
 
-  console.log("Moved piece " + startPiece + " to square " + endSquare.getAttribute("square-id"));
-
-
-// function drop(e) {
-//   e.preventDefault();
-//   const endPositionId = parseInt(e.target.getAttribute("square-id"));
-//   startPositionId = e.dataTransfer.getData("text/plain");
-//   // removeOriginalPiece(endPositionId)
-//   movePiece(startPositionId, endPositionId);
-// }
-
-// function movePiece(start, end) {
-//   const startSquare = document.querySelector(`[square-id="${start}"]`);
-//   const endSquare = document.querySelector(`[square-id="${end}"]`);
-//   console.log(endSquare, 'endSquare')
-//   console.log(startSquare, 'start square')
-
-//   if (!startSquare || !endSquare) {
-//     console.error("start or end square wasnt found");
-//     return;
-//   }
-//   //check if the end square is occupied
-//   const pieceInEndSquare = endSquare.querySelector('.piece')
-//   if (pieceInEndSquare) {
-//     console.log('capture THIS piece')
-//     pieceInEndSquare.remove()
-//   }
-
-//   endSquare.innerHTML = startSquare.innerHTML
-//   startSquare.innerHTML = " "
-
-// }
+  console.log(
+    "Moved piece " +
+      startPiece +
+      " to square " +
+      endSquare.getAttribute("square-id")
+  );
 }
