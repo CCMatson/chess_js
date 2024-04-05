@@ -56,11 +56,19 @@ function dragOver(e) {
 function drop(e) {
   e.preventDefault();
   const startSquareId = parseInt(e.dataTransfer.getData("text/plain"));
+  console.log('this is the starting square id' , startSquareId)
   const startPiece = gameState[startSquareId]
+  console.log('this is the startPiece', startPiece)
   
-  const endSquare = e.target.closest(".square");
+  const endSquare = e.target.closest(".square")
+
+  console.log('this is the endSquare', endSquare)
+
 const endSquareId = parseInt(endSquare.getAttribute("square-id"))
+console.log('this is the end square id', endSquareId)
+
 const endPiece = gameState[endSquareId]
+console.log('this is the end piece', endPiece)
 
   //error handling
   if (!startSquareId || !endSquareId) {
