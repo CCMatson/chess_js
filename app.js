@@ -15,7 +15,7 @@ pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1,
 rook1, knight1, bishop1, queen1, king1, bishop1, knight1, rook1,
 ]
 
-// let currentPlayer = "player 1"
+// let player1 = true
 
 function createBoard() {
   //for each element in array starPieces at index i
@@ -88,38 +88,14 @@ function drop(e) {
 
   endSquare.innerHTML = startPiece;
 
-  // const allPieces = document.querySelectorAll(".piece");
-  // allPieces.forEach(piece => {
-  //   piece.draggable = true;
-  //   piece.addEventListener("dragstart", (event) => {
-  //     const startPositionId = endSquare.getAttribute("square-id");
-  //     console.log("drag started from square", startPositionId);
-  //     event.dataTransfer.setData("text/plain", startPositionId);
-  //   });
-  // });
-
+  //remove the moved piece from it's original square
   const movedPiece = startSquare.querySelector(".piece");
-  // if (movedPiece) {
-  //   movedPiece.draggable = true;
-  //   movedPiece.addEventListener("dragstart", (event) => {
-  //     const startPositionId = endSquare.getAttribute("square-id");
-  //     console.log("drag started from square", startPositionId);
-  //     event.dataTransfer.setData("text/plain", startPositionId);
-  //   });
-  // }
-  // const piece = startSquare.querySelector(".piece");
-  // if (piece) {
-  //   piece.draggable = true;
-  //   piece.addEventListener("dragstart", (event) => {
-  //     const startPositionId = endSquare.getAttribute("square-id");
-  //     console.log("drag started from square", startPositionId);
-  //     event.dataTransfer.setData("text/plain", startPositionId);
-  //   });
-  // }
-  // const movedPiece = startSquare.querySelector(".piece")
+
   if (movedPiece && movedPiece.parentNode === startSquare) {
     startSquare.removeChild(movedPiece);
   }
+
+  // switchPlayerTurn();
 
   const piece = endSquare.querySelector(".piece");
   if (piece) {
@@ -147,9 +123,9 @@ resetButton.addEventListener("click", () => {
 
 function resetGame() {
   allSquares.forEach((square, i) => {
-    square.innerHTML = startPieces[i];
+    square.innerHTML = startPieces[i]
 
-    const piece = square.querySelector(".piece");
+    const piece = square.querySelector(".piece")
     if (piece) {
       // Re-enable drag and drop functionality for the piece
       piece.draggable = true;
@@ -159,8 +135,6 @@ function resetGame() {
         event.dataTransfer.setData("text/plain", startPositionId);
       });
     }
-    // Reattach dragover and drop event listeners
-    square.addEventListener("dragover", dragOver);
-    square.addEventListener("drop", drop);
+
   });
 }
