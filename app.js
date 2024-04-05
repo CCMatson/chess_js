@@ -81,14 +81,46 @@ function drop(e) {
   const startPiece = startSquare.innerHTML.trim();
   const endPiece = endSquare.innerHTML.trim();
 
-  if (endPiece !== "") {
+  if (endPiece !== " ") {
     console.log("Captured piece: " + endPiece);
-    endSquare.innerHTML = "";
+    endSquare.innerHTML = " ";
   }
 
   endSquare.innerHTML = startPiece;
-  startSquare.innerHTML = "";
-  
+
+  const allPieces = document.querySelectorAll(".piece");
+  allPieces.forEach(piece => {
+    piece.draggable = true;
+    piece.addEventListener("dragstart", (event) => {
+      const startPositionId = endSquare.getAttribute("square-id");
+      console.log("drag started from square", startPositionId);
+      event.dataTransfer.setData("text/plain", startPositionId);
+    });
+  });
+
+  const movedPiece = startSquare.querySelector(".piece");
+  // if (movedPiece) {
+  //   movedPiece.draggable = true;
+  //   movedPiece.addEventListener("dragstart", (event) => {
+  //     const startPositionId = endSquare.getAttribute("square-id");
+  //     console.log("drag started from square", startPositionId);
+  //     event.dataTransfer.setData("text/plain", startPositionId);
+  //   });
+  // }
+  // const piece = startSquare.querySelector(".piece");
+  // if (piece) {
+  //   piece.draggable = true;
+  //   piece.addEventListener("dragstart", (event) => {
+  //     const startPositionId = endSquare.getAttribute("square-id");
+  //     console.log("drag started from square", startPositionId);
+  //     event.dataTransfer.setData("text/plain", startPositionId);
+  //   });
+  // }
+  // const movedPiece = startSquare.querySelector(".piece")
+  if (movedPiece && movedPiece.parentNode === startSquare) {
+    startSquare.removeChild(movedPiece);
+  }
+
   console.log(
     "Moved piece " +
       startPiece +
@@ -97,14 +129,15 @@ function drop(e) {
   );
 }
 
-const resetButton = document.getElementById("reset-button")
-resetButton.addEventListener('click', () => {console.log('reset button clicked')
-resetGame()
-})
+const resetButton = document.getElementById("reset-button");
+resetButton.addEventListener("click", () => {
+  console.log("reset button clicked");
+  resetGame();
+});
 
-function resetGame(){
+function resetGame() {
   allSquares.forEach((square, i) => {
-    square.innerHTML = startPieces[i]
+    square.innerHTML = startPieces[i];
 
     const piece = square.querySelector(".piece");
     if (piece) {
@@ -116,9 +149,8 @@ function resetGame(){
         event.dataTransfer.setData("text/plain", startPositionId);
       });
     }
-
     // Reattach dragover and drop event listeners
     square.addEventListener("dragover", dragOver);
     square.addEventListener("drop", drop);
-  })
+  });
 }
