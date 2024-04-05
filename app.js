@@ -133,7 +133,7 @@ function resetGame() {
 
     const piece = square.querySelector(".piece");
     if (piece) {
-      // Re-enable drag and drop functionality for the piece
+      //re-enable drag and drop functionality for the piece
       piece.draggable = true;
       piece.addEventListener("dragstart", (event) => {
         const startPositionId = square.getAttribute("square-id");
