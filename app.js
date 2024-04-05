@@ -88,15 +88,15 @@ function drop(e) {
 
   endSquare.innerHTML = startPiece;
 
-  const allPieces = document.querySelectorAll(".piece");
-  allPieces.forEach(piece => {
-    piece.draggable = true;
-    piece.addEventListener("dragstart", (event) => {
-      const startPositionId = endSquare.getAttribute("square-id");
-      console.log("drag started from square", startPositionId);
-      event.dataTransfer.setData("text/plain", startPositionId);
-    });
-  });
+  // const allPieces = document.querySelectorAll(".piece");
+  // allPieces.forEach(piece => {
+  //   piece.draggable = true;
+  //   piece.addEventListener("dragstart", (event) => {
+  //     const startPositionId = endSquare.getAttribute("square-id");
+  //     console.log("drag started from square", startPositionId);
+  //     event.dataTransfer.setData("text/plain", startPositionId);
+  //   });
+  // });
 
   const movedPiece = startSquare.querySelector(".piece");
   // if (movedPiece) {
@@ -119,6 +119,16 @@ function drop(e) {
   // const movedPiece = startSquare.querySelector(".piece")
   if (movedPiece && movedPiece.parentNode === startSquare) {
     startSquare.removeChild(movedPiece);
+  }
+
+  const piece = endSquare.querySelector(".piece");
+  if (piece) {
+    piece.draggable = true;
+    piece.addEventListener("dragstart", (event) => {
+      const startPositionId = endSquare.getAttribute("square-id");
+      console.log("drag started from square", startPositionId);
+      event.dataTransfer.setData("text/plain", startPositionId);
+    });
   }
 
   console.log(
