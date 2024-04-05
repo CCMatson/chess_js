@@ -106,10 +106,11 @@ function drop(e) {
       event.dataTransfer.setData("text/plain", startPositionId);
     });
   }
-  // Toggle current player
+
+  //toggle current player
   currentPlayer = currentPlayer === 1 ? 2 : 1;
 
-  // Update player display
+  //update player display
   player.textContent = currentPlayer === 1 ? "Player 1's" : "Player 2's";
 
   console.log(
