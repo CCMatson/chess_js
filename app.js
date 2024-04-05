@@ -15,7 +15,7 @@ pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1, pawn1,
 rook1, knight1, bishop1, queen1, king1, bishop1, knight1, rook1,
 ]
 
-// let player1 = true
+let currentPlayer = 1;
 
 function createBoard() {
   //for each element in array starPieces at index i
@@ -78,9 +78,11 @@ function drop(e) {
     return;
   }
 
+  //get the content from the start square and end square
   const startPiece = startSquare.innerHTML.trim();
   const endPiece = endSquare.innerHTML.trim();
 
+  //if the square is not empty, you capture the piece that was there
   if (endPiece !== " ") {
     console.log("Captured piece: " + endPiece);
     endSquare.innerHTML = " ";
@@ -95,8 +97,6 @@ function drop(e) {
     startSquare.removeChild(movedPiece);
   }
 
-  // switchPlayerTurn();
-
   const piece = endSquare.querySelector(".piece");
   if (piece) {
     piece.draggable = true;
@@ -106,6 +106,11 @@ function drop(e) {
       event.dataTransfer.setData("text/plain", startPositionId);
     });
   }
+  // Toggle current player
+  currentPlayer = currentPlayer === 1 ? 2 : 1;
+
+  // Update player display
+  player.textContent = currentPlayer === 1 ? "Player 1's" : "Player 2's";
 
   console.log(
     "Moved piece " +
@@ -123,9 +128,9 @@ resetButton.addEventListener("click", () => {
 
 function resetGame() {
   allSquares.forEach((square, i) => {
-    square.innerHTML = startPieces[i]
+    square.innerHTML = startPieces[i];
 
-    const piece = square.querySelector(".piece")
+    const piece = square.querySelector(".piece");
     if (piece) {
       // Re-enable drag and drop functionality for the piece
       piece.draggable = true;
@@ -135,6 +140,5 @@ function resetGame() {
         event.dataTransfer.setData("text/plain", startPositionId);
       });
     }
-
   });
 }

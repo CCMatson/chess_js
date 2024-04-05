@@ -24,6 +24,7 @@ button {
   background-color: pink;
   border-radius: 90px;
   margin-top: 15px;
+  margin-left: 5px;
 }
 
 button:hover {
