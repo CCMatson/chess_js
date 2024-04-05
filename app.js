@@ -142,4 +142,6 @@ function resetGame() {
       });
     }
   });
+  currentPlayer = 1;
+  player.textContent = "Player 1's"
 }
